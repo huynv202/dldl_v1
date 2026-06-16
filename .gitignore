@@ -1,0 +1,57 @@
+```
+# Go build artifacts
+*.o
+*.a
+*.so
+*.exe
+*.dll
+*.out
+*.test
+
+# Go cache and tools
+go.sum
+go.mod.bak
+*.mod.bak
+*.sum.bak
+
+# Dependencies
+vendor/
+
+# Build directories
+bin/
+pkg/
+target/
+
+# Environment variables
+.env
+.env.local
+.env.*
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*~
+.DS_Store
+Thumbs.db
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Test cache
+*.test
+*_testmain.go
+
+# Distribution
+dist/
+build/
+```
