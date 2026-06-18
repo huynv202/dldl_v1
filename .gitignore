@@ -1,8 +1,4 @@
 ```
-# Database migrations
-database/migrations/*.sql
-
-# Implementation and specification documents
-IMPLEMENTATION_SUMMARY.md
-assets/GRAPHICS_SPECIFICATION.md
+# Generated assets
+assets/generated/
 ```
