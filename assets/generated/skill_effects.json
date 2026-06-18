@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "damage_numbers": {
+    "white": {
+      "color": "#FFFFFF",
+      "type": "normal"
+    },
+    "green": {
+      "color": "#00FF00",
+      "type": "heal"
+    },
+    "orange": {
+      "color": "#FF8000",
+      "type": "crit"
+    },
+    "red": {
+      "color": "#FF0000",
+      "type": "massive_crit"
+    },
+    "purple": {
+      "color": "#8000FF",
+      "type": "true_damage"
+    }
+  },
+  "element_impacts": {
+    "physical": {
+      "prefab": "VFX/Impacts/physical_hit.prefab",
+      "sound": "sfx_metal_clang"
+    },
+    "fire": {
+      "prefab": "VFX/Impacts/fire_explosion.prefab",
+      "sound": "sfx_fire_burst"
+    },
+    "ice": {
+      "prefab": "VFX/Impacts/ice_shatter.prefab",
+      "sound": "sfx_ice_crack"
+    },
+    "lightning": {
+      "prefab": "VFX/Impacts/lightning_strike.prefab",
+      "sound": "sfx_thunder"
+    }
+  }
+}

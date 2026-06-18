@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "tiers": {
+    "white": {
+      "color": "#FFFFFF",
+      "min_level": 1,
+      "max_stats": 1
+    },
+    "green": {
+      "color": "#00FF00",
+      "min_level": 10,
+      "max_stats": 2
+    },
+    "blue": {
+      "color": "#0080FF",
+      "min_level": 20,
+      "max_stats": 3
+    },
+    "purple": {
+      "color": "#8000FF",
+      "min_level": 40,
+      "max_stats": 4
+    },
+    "orange": {
+      "color": "#FF8000",
+      "min_level": 60,
+      "max_stats": 5
+    },
+    "red": {
+      "color": "#FF0000",
+      "min_level": 80,
+      "max_stats": 6
+    }
+  },
+  "slots": [
+    "head",
+    "chest",
+    "legs",
+    "boots",
+    "gloves",
+    "weapon",
+    "ring1",
+    "ring2"
+  ],
+  "substats": [
+    "attack_percent",
+    "defense_percent",
+    "hp_percent",
+    "crit_rate",
+    "crit_damage",
+    "speed"
+  ]
+}

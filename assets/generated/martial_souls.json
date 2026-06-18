@@ -1,0 +1,73 @@
+{
+  "version": "1.0",
+  "martial_souls": [
+    {
+      "id": "iron_sword",
+      "name": "Thiet Kiem",
+      "rarity": "common",
+      "type": "weapon",
+      "tris": 3000,
+      "effects": [
+        "basic_glow"
+      ]
+    },
+    {
+      "id": "white_tiger",
+      "name": "Bach Ho",
+      "rarity": "epic",
+      "type": "beast",
+      "tris": 15000,
+      "effects": [
+        "fur_shader",
+        "lightning_aura"
+      ]
+    },
+    {
+      "id": "clear_sky_hammer",
+      "name": "Thanh Thien Chuy",
+      "rarity": "legendary",
+      "type": "weapon",
+      "tris": 8000,
+      "effects": [
+        "shockwave",
+        "cloud_trail"
+      ]
+    },
+    {
+      "id": "phoenix",
+      "name": "Phuong Hoang",
+      "rarity": "legendary",
+      "type": "beast",
+      "tris": 20000,
+      "effects": [
+        "fire_feathers",
+        "rebirth_flame"
+      ]
+    },
+    {
+      "id": "seraphim",
+      "name": "Thien Su",
+      "rarity": "divine",
+      "type": "entity",
+      "tris": 35000,
+      "effects": [
+        "six_wings",
+        "holy_light",
+        "feather_storm"
+      ]
+    },
+    {
+      "id": "dragon_god",
+      "name": "Long Than",
+      "rarity": "divine",
+      "type": "beast",
+      "tris": 50000,
+      "length": 5.0,
+      "effects": [
+        "dragon_breath",
+        "scale_shimmer",
+        "time_distortion"
+      ]
+    }
+  ]
+}

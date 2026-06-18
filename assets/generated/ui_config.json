@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "rarity_colors": {
+    "common": "#FFFFFF",
+    "rare": "#00FF00",
+    "epic": "#0080FF",
+    "legendary": "#8000FF",
+    "divine": "#FFD700",
+    "red": "#FF0000"
+  },
+  "main_hud": {
+    "top_bar": [
+      "level",
+      "exp_bar",
+      "gold",
+      "diamonds",
+      "energy"
+    ],
+    "bottom_bar": [
+      "skills",
+      "chat",
+      "menu",
+      "friends",
+      "guild"
+    ]
+  }
+}

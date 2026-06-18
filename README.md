@@ -74,71 +74,381 @@ A complete implementation of the SL-OMEGA game based on the design documentation
 ### Prerequisites
 - Go 1.21+
 - MySQL 8.0+
-- Redis 7.0+
-- Unity 2022+ (for client development)
+- Redis 7.0+ (optional but recommended)
+- Unity 2022.3 LTS+ (for client development)
+- Python 3.8+ (for asset generation scripts)
 
-### Backend Setup
+### Step 1: Database Setup
 
-1. **Configure Environment**
+1. **Create MySQL Database**
 ```bash
-cd /workspace/server
-cp .env.example .env
-# Edit .env with your database credentials
+mysql -u root -p
 ```
 
-2. **Install Dependencies**
+```sql
+CREATE DATABASE sl_omega CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'sl_user'@'localhost' IDENTIFIED BY 'sl_password_secure_123';
+GRANT ALL PRIVILEGES ON sl_omega.* TO 'sl_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+2. **Run Migrations**
 ```bash
+# Run schema migration
+mysql -u sl_user -p sl_omega < database/migrations/001_initial_schema.sql
+
+# Run seed data (martial souls, skills, maps, etc.)
+mysql -u sl_user -p sl_omega < database/migrations/002_seed_data.sql
+```
+
+3. **Verify Data**
+```bash
+mysql -u sl_user -p sl_omega -e "SELECT name, rarity FROM martial_souls LIMIT 5;"
+```
+
+### Step 2: Backend Configuration
+
+1. **Create Environment File**
+```bash
+cd /workspace
+cat > .env << EOF
+# Database
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=sl_user
+DB_PASS=sl_password_secure_123
+DB_NAME=sl_omega
+
+# Redis (Optional)
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASS=
+
+# Server
+SERVER_PORT=8080
+ENV=development
+LOG_LEVEL=debug
+
+# Security
+JWT_SECRET=sl_omega_super_secret_jwt_key_change_in_prod
+API_KEY_HEADER=X-API-Key
+EOF
+```
+
+2. **Install Go Dependencies**
+```bash
+cd /workspace/server
 go mod tidy
 ```
 
-3. **Setup Database**
-```sql
-CREATE DATABASE sl_omega CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
+### Step 3: Run Backend Server
 
-4. **Run Server**
 ```bash
+# Development mode
 go run cmd/main.go
+
+# Or build and run for production
+go build -o sl_omega_server cmd/main.go
+./sl_omega_server
 ```
 
 Server will start on `http://localhost:8080`
 
-### API Endpoints
+### Step 4: Verify API
 
-#### Authentication
-- `POST /api/v1/auth/register` - Create new account
-- `POST /api/v1/auth/login` - Login
+```bash
+# Health check
+curl http://localhost:8080/api/v1/health
 
-#### Player
-- `GET /api/v1/player/profile` - Get player profile
-- `GET /api/v1/player/stats` - Get player stats & BP
-- `POST /api/v1/player/upgrade` - Upgrade player
+# Get martial souls list
+curl http://localhost:8080/api/v1/martial-souls
 
-#### Gacha
-- `POST /api/v1/gacha/pull` - Single pull
-- `POST /api/v1/gacha/pull/ten` - 10-pull
-- `GET /api/v1/gacha/history` - Pull history
+# Test gacha pull
+curl -X POST http://localhost:8080/api/v1/gacha/pull \
+  -H "Content-Type: application/json" \
+  -d '{"player_id": 1, "banner_id": 1, "pull_count": 1}'
+```
 
-#### Combat
-- `POST /api/v1/combat/battle` - Start battle
-- `POST /api/v1/combat/skill` - Cast skill
-- `GET /api/v1/combat/bp` - Calculate BP
+### Step 5: Unity Client Setup
 
-#### Equipment
-- `GET /api/v1/equipment` - Get all equipment
-- `POST /api/v1/equipment/enhance` - Enhance gear (+1 to +15)
-- `POST /api/v1/equipment/refine` - Refine (star 1-10)
-- `POST /api/v1/equipment/gem` - Socket gems
+1. **Create Unity Project**
+   - Open Unity Hub → New Project → 3D Core
+   - Name: `SL_OMEGA_Client`
+   - Unity Version: 2022.3 LTS or newer
 
-#### Soul Rings
-- `GET /api/v1/soul-rings` - Get soul rings
-- `POST /api/v1/soul-rings/hunt` - Hunt for rings
-- `POST /api/v1/soul-rings/upgrade` - Upgrade rings
+2. **Import Asset Configs**
+   Copy generated configs to Unity:
+   ```bash
+   # In your Unity project folder
+   mkdir -p Assets/Resources/Configs
+   cp /workspace/assets/generated/*.json Assets/Resources/Configs/
+   ```
 
-#### Daily/Retention
-- `GET /api/v1/daily/rewards` - Get daily rewards
-- `POST /api/v1/daily/claim` - Claim reward
-- `GET /api/v1/daily/quests` - Get daily quests
+3. **Organize Asset Folders**
+   ```
+   Assets/
+   ├── Resources/
+   │   ├── Configs/       # JSON configs from /workspace/assets/generated/
+   │   ├── Models/        # 3D models (characters, monsters, weapons)
+   │   ├── Textures/      # Character skins, environment textures
+   │   ├── Audio/         # BGM, SFX, voice lines
+   │   └── Prefabs/       # Character prefabs, map prefabs
+   ├── Scenes/
+   │   ├── MainMenu.unity
+   │   ├── Combat.unity
+   │   ├── Gacha.unity
+   │   └── Town.unity
+   └── Scripts/
+       ├── Core/          # GameManager, NetworkManager
+       ├── Combat/        # CombatController, SkillSystem
+       ├── Systems/       # GachaSystem, InventorySystem
+       └── UI/            # Panel controllers
+   ```
+
+4. **Load Configs in Unity (C# Example)**
+```csharp
+using UnityEngine;
+using System.Collections.Generic;
+
+[System.Serializable]
+public class MartialSoulConfig {
+    public int id;
+    public string name;
+    public string rarity;
+    public string modelPath;
+    public List<string> skills;
+}
+
+public class ConfigManager : MonoBehaviour {
+    public static ConfigManager Instance;
+    public List<MartialSoulConfig> martialSouls;
+
+    void Awake() {
+        if (Instance == null) Instance = this;
+        LoadMartialSouls();
+    }
+
+    void LoadMartialSouls() {
+        TextAsset json = Resources.Load<TextAsset>("Configs/martial_souls");
+        if (json != null) {
+            martialSouls = JsonUtility.FromJson<List<MartialSoulConfig>>(json.text);
+            Debug.Log($"Loaded {martialSouls.Count} martial souls");
+        }
+    }
+}
+```
+
+5. **Follow Graphics Specification**
+   Refer to `/workspace/assets/GRAPHICS_SPECIFICATION.md` for:
+   - Character model specs (tris count, texture sizes)
+   - Map design guidelines
+   - VFX requirements
+   - Audio specifications
+   - UI/UX standards
+
+## 🎯 Testing Guide
+
+### API Testing Examples
+
+#### 1. Authentication
+```bash
+# Register new player
+curl -X POST http://localhost:8080/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"player1","password":"secure123","email":"player@example.com"}'
+
+# Login
+curl -X POST http://localhost:8080/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"player1","password":"secure123"}'
+```
+
+#### 2. Gacha System
+```bash
+# Single pull
+curl -X POST http://localhost:8080/api/v1/gacha/pull \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"banner_id": 1, "pull_count": 1}'
+
+# 10-pull (guaranteed SR+)
+curl -X POST http://localhost:8080/api/v1/gacha/pull/ten \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"banner_id": 1}'
+
+# View pull history
+curl -X GET http://localhost:8080/api/v1/gacha/history \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+#### 3. Combat Simulation
+```bash
+# Simulate battle
+curl -X POST http://localhost:8080/api/v1/combat/simulate \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "attacker": {
+      "level": 50,
+      "attack": 1200,
+      "crit_rate": 0.25,
+      "crit_dmg": 0.50,
+      "element": "fire"
+    },
+    "defender": {
+      "level": 50,
+      "defense": 800,
+      "dodge_rate": 0.10,
+      "block_rate": 0.05
+    }
+  }'
+```
+
+#### 4. Equipment System
+```bash
+# Get all equipment
+curl -X GET http://localhost:8080/api/v1/equipment \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Enhance equipment (+1 to +15)
+curl -X POST http://localhost:8080/api/v1/equipment/enhance \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"equipment_id": 123, "use_protection": false}'
+
+# Socket gems
+curl -X POST http://localhost:8080/api/v1/equipment/gem \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"equipment_id": 123, "gem_id": 45, "slot": 1}'
+```
+
+#### 5. Soul Rings
+```bash
+# Hunt for soul rings
+curl -X POST http://localhost:8080/api/v1/soul-rings/hunt \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"map_id": 3, "use_premium_ticket": false}'
+
+# Upgrade soul ring
+curl -X POST http://localhost:8080/api/v1/soul-rings/upgrade \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"soul_ring_id": 789, "material_ids": [101, 102, 103]}'
+```
+
+#### 6. Daily Systems
+```bash
+# Claim daily login reward
+curl -X POST http://localhost:8080/api/v1/daily/claim \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Get daily quests
+curl -X GET http://localhost:8080/api/v1/daily/quests \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Complete quest
+curl -X POST http://localhost:8080/api/v1/daily/quest/complete \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"quest_id": 5}'
+```
+
+### Unity Client Testing
+
+1. **Test Config Loading**
+   - Create empty GameObject in Unity scene
+   - Attach `ConfigManager` script
+   - Press Play → Check Console for "Loaded X martial souls"
+
+2. **Test Network Connection**
+```csharp
+// In NetworkManager.cs
+public class NetworkManager : MonoBehaviour {
+    void Start() {
+        StartCoroutine(TestConnection());
+    }
+
+    IEnumerator TestConnection() {
+        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost:8080/api/v1/health")) {
+            yield return request.SendWebRequest();
+            if (request.result == UnityWebRequest.Result.Success) {
+                Debug.Log("✅ Server connected: " + request.downloadHandler.text);
+            } else {
+                Debug.LogError("❌ Connection failed: " + request.error);
+            }
+        }
+    }
+}
+```
+
+3. **Test Gacha UI**
+   - Import `ui_config.json` for rarity colors
+   - Create gacha button with animation
+   - Connect to backend pull endpoint
+   - Verify pity counter increments correctly
+
+## 🔧 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| `Connection refused` (MySQL) | Run `sudo systemctl start mysql` |
+| `Packet too large` error | Add `max_allowed_packet=64M` to `my.cnf` |
+| `Module not found` (Go) | Run `go mod tidy` in `/workspace/server` |
+| JSON parse error (Unity) | Validate JSON at jsonlint.com |
+| CORS error in Unity | Ensure backend has CORS enabled in `main.go` |
+| JWT token expired | Re-login to get fresh token |
+
+## 📊 Performance Monitoring
+
+### Backend Metrics
+```bash
+# Check server health
+curl http://localhost:8080/api/v1/health
+
+# Monitor active connections (if Redis enabled)
+redis-cli MONITOR
+```
+
+### Database Optimization
+```sql
+-- Check slow queries
+SELECT * FROM mysql.slow_log;
+
+-- Analyze table performance
+ANALYZE TABLE players;
+ANALYZE TABLE gacha_logs;
+
+-- Check index usage
+EXPLAIN SELECT * FROM player_martial_souls WHERE player_id = 1;
+```
+
+## 🚀 Deployment Checklist
+
+- [ ] MySQL database created and migrated
+- [ ] Seed data loaded successfully
+- [ ] `.env` file configured with production values
+- [ ] JWT_SECRET changed from default
+- [ ] Redis running (optional but recommended)
+- [ ] Backend compiles without errors
+- [ ] All API endpoints tested
+- [ ] Unity configs imported correctly
+- [ ] Graphics assets follow specification
+- [ ] Load testing completed (target: 10k concurrent)
+
+## 📞 Support
+
+For detailed system design, refer to:
+- `/workspace/docs/` - Complete design documentation
+- `/workspace/assets/GRAPHICS_SPECIFICATION.md` - Art bible
+- `/workspace/database/migrations/` - Database schema reference
+
+---
+
+**Happy Building! 🎮**
 
 ## 🎯 Key Systems Implementation
 
