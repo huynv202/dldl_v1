@@ -1,0 +1,296 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-06-18T01:21:49.881457",
+  "characters": [
+    {
+      "id": "warrior_male",
+      "class_id": "warrior",
+      "name": "Chien Binh (Nam)",
+      "gender": "male",
+      "height": 1.85,
+      "role": "Tank/DPS",
+      "weapon": "Sword/Shield",
+      "base_stats": {
+        "str": 90,
+        "agi": 60,
+        "int": 40
+      },
+      "model": {
+        "mesh": "Characters/warrior/male/mesh.fbx",
+        "tris_count": 10000,
+        "textures": [
+          "Characters/warrior/male/diffuse.png",
+          "Characters/warrior/male/normal.png",
+          "Characters/warrior/male/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/warrior/idle.anim",
+        "run": "Animations/warrior/run.anim",
+        "attack": "Animations/warrior/attack.anim",
+        "skill_1": "Animations/warrior/skill1.anim",
+        "skill_2": "Animations/warrior/skill2.anim",
+        "ultimate": "Animations/warrior/ultimate.anim",
+        "death": "Animations/warrior/death.anim"
+      },
+      "vfx": []
+    },
+    {
+      "id": "warrior_female",
+      "class_id": "warrior",
+      "name": "Chien Binh (Nu)",
+      "gender": "female",
+      "height": 1.75,
+      "role": "Tank/DPS",
+      "weapon": "Sword/Shield",
+      "base_stats": {
+        "str": 90,
+        "agi": 60,
+        "int": 40
+      },
+      "model": {
+        "mesh": "Characters/warrior/female/mesh.fbx",
+        "tris_count": 10000,
+        "textures": [
+          "Characters/warrior/female/diffuse.png",
+          "Characters/warrior/female/normal.png",
+          "Characters/warrior/female/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/warrior/idle.anim",
+        "run": "Animations/warrior/run.anim",
+        "attack": "Animations/warrior/attack.anim",
+        "skill_1": "Animations/warrior/skill1.anim",
+        "skill_2": "Animations/warrior/skill2.anim",
+        "ultimate": "Animations/warrior/ultimate.anim",
+        "death": "Animations/warrior/death.anim"
+      },
+      "vfx": []
+    },
+    {
+      "id": "mage_male",
+      "class_id": "mage",
+      "name": "Phap Su (Nam)",
+      "gender": "male",
+      "height": 1.8,
+      "role": "Ranged DPS",
+      "weapon": "Staff",
+      "base_stats": {
+        "str": 40,
+        "agi": 50,
+        "int": 95
+      },
+      "model": {
+        "mesh": "Characters/mage/male/mesh.fbx",
+        "tris_count": 12000,
+        "textures": [
+          "Characters/mage/male/diffuse.png",
+          "Characters/mage/male/normal.png",
+          "Characters/mage/male/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/mage/idle.anim",
+        "run": "Animations/mage/run.anim",
+        "attack": "Animations/mage/attack.anim",
+        "skill_1": "Animations/mage/skill1.anim",
+        "skill_2": "Animations/mage/skill2.anim",
+        "ultimate": "Animations/mage/ultimate.anim",
+        "death": "Animations/mage/death.anim"
+      },
+      "vfx": [
+        "robe_physics",
+        "floating_staff"
+      ]
+    },
+    {
+      "id": "mage_female",
+      "class_id": "mage",
+      "name": "Phap Su (Nu)",
+      "gender": "female",
+      "height": 1.7,
+      "role": "Ranged DPS",
+      "weapon": "Staff",
+      "base_stats": {
+        "str": 40,
+        "agi": 50,
+        "int": 95
+      },
+      "model": {
+        "mesh": "Characters/mage/female/mesh.fbx",
+        "tris_count": 12000,
+        "textures": [
+          "Characters/mage/female/diffuse.png",
+          "Characters/mage/female/normal.png",
+          "Characters/mage/female/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/mage/idle.anim",
+        "run": "Animations/mage/run.anim",
+        "attack": "Animations/mage/attack.anim",
+        "skill_1": "Animations/mage/skill1.anim",
+        "skill_2": "Animations/mage/skill2.anim",
+        "ultimate": "Animations/mage/ultimate.anim",
+        "death": "Animations/mage/death.anim"
+      },
+      "vfx": [
+        "robe_physics",
+        "floating_staff"
+      ]
+    },
+    {
+      "id": "archer_male",
+      "class_id": "archer",
+      "name": "Xa Thu (Nam)",
+      "gender": "male",
+      "height": 1.82,
+      "role": "Physical DPS",
+      "weapon": "Bow",
+      "base_stats": {
+        "str": 50,
+        "agi": 95,
+        "int": 45
+      },
+      "model": {
+        "mesh": "Characters/archer/male/mesh.fbx",
+        "tris_count": 9000,
+        "textures": [
+          "Characters/archer/male/diffuse.png",
+          "Characters/archer/male/normal.png",
+          "Characters/archer/male/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/archer/idle.anim",
+        "run": "Animations/archer/run.anim",
+        "attack": "Animations/archer/attack.anim",
+        "skill_1": "Animations/archer/skill1.anim",
+        "skill_2": "Animations/archer/skill2.anim",
+        "ultimate": "Animations/archer/ultimate.anim",
+        "death": "Animations/archer/death.anim"
+      },
+      "vfx": [
+        "bow_string_physics",
+        "long_hair_wind"
+      ]
+    },
+    {
+      "id": "archer_female",
+      "class_id": "archer",
+      "name": "Xa Thu (Nu)",
+      "gender": "female",
+      "height": 1.72,
+      "role": "Physical DPS",
+      "weapon": "Bow",
+      "base_stats": {
+        "str": 50,
+        "agi": 95,
+        "int": 45
+      },
+      "model": {
+        "mesh": "Characters/archer/female/mesh.fbx",
+        "tris_count": 9000,
+        "textures": [
+          "Characters/archer/female/diffuse.png",
+          "Characters/archer/female/normal.png",
+          "Characters/archer/female/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/archer/idle.anim",
+        "run": "Animations/archer/run.anim",
+        "attack": "Animations/archer/attack.anim",
+        "skill_1": "Animations/archer/skill1.anim",
+        "skill_2": "Animations/archer/skill2.anim",
+        "ultimate": "Animations/archer/ultimate.anim",
+        "death": "Animations/archer/death.anim"
+      },
+      "vfx": [
+        "bow_string_physics",
+        "long_hair_wind"
+      ]
+    },
+    {
+      "id": "assassin_male",
+      "class_id": "assassin",
+      "name": "Sat Thu (Nam)",
+      "gender": "male",
+      "height": 1.78,
+      "role": "Burst DPS",
+      "weapon": "Dual Daggers",
+      "base_stats": {
+        "str": 70,
+        "agi": 90,
+        "int": 35
+      },
+      "model": {
+        "mesh": "Characters/assassin/male/mesh.fbx",
+        "tris_count": 8500,
+        "textures": [
+          "Characters/assassin/male/diffuse.png",
+          "Characters/assassin/male/normal.png",
+          "Characters/assassin/male/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/assassin/idle.anim",
+        "run": "Animations/assassin/run.anim",
+        "attack": "Animations/assassin/attack.anim",
+        "skill_1": "Animations/assassin/skill1.anim",
+        "skill_2": "Animations/assassin/skill2.anim",
+        "ultimate": "Animations/assassin/ultimate.anim",
+        "death": "Animations/assassin/death.anim"
+      },
+      "vfx": [
+        "shadow_trail",
+        "dagger_spin"
+      ]
+    },
+    {
+      "id": "assassin_female",
+      "class_id": "assassin",
+      "name": "Sat Thu (Nu)",
+      "gender": "female",
+      "height": 1.68,
+      "role": "Burst DPS",
+      "weapon": "Dual Daggers",
+      "base_stats": {
+        "str": 70,
+        "agi": 90,
+        "int": 35
+      },
+      "model": {
+        "mesh": "Characters/assassin/female/mesh.fbx",
+        "tris_count": 8500,
+        "textures": [
+          "Characters/assassin/female/diffuse.png",
+          "Characters/assassin/female/normal.png",
+          "Characters/assassin/female/metallic.png"
+        ],
+        "texture_size": 2048
+      },
+      "animations": {
+        "idle": "Animations/assassin/idle.anim",
+        "run": "Animations/assassin/run.anim",
+        "attack": "Animations/assassin/attack.anim",
+        "skill_1": "Animations/assassin/skill1.anim",
+        "skill_2": "Animations/assassin/skill2.anim",
+        "ultimate": "Animations/assassin/ultimate.anim",
+        "death": "Animations/assassin/death.anim"
+      },
+      "vfx": [
+        "shadow_trail",
+        "dagger_spin"
+      ]
+    }
+  ]
+}

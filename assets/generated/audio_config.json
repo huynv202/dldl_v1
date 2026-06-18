@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "bgm": {
+    "login": {
+      "file": "Audio/Music/login_theme.mp3",
+      "volume": 0.8,
+      "loop": true
+    },
+    "city": {
+      "file": "Audio/Music/city_peaceful.mp3",
+      "volume": 0.6,
+      "loop": true
+    },
+    "combat": {
+      "file": "Audio/Music/combat_battle.mp3",
+      "volume": 0.8,
+      "loop": true
+    },
+    "boss": {
+      "file": "Audio/Music/boss_epic.mp3",
+      "volume": 0.9,
+      "loop": true
+    }
+  },
+  "sfx_combat": {
+    "sword_hit": "Audio/SFX/sword_hit.wav",
+    "metal_clang": "Audio/SFX/metal_clang.wav",
+    "crit_shatter": "Audio/SFX/crit_shatter.wav",
+    "skill_cast": "Audio/SFX/skill_cast.wav"
+  }
+}

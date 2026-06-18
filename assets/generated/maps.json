@@ -1,0 +1,91 @@
+{
+  "version": "1.0",
+  "maps": [
+    {
+      "id": "novice_village",
+      "name": "Tan Thu Thon",
+      "type": "city",
+      "size": "200x200m",
+      "style": "ancient_chinese",
+      "lighting": "day",
+      "prefabs": [
+        "houses",
+        "npcs",
+        "training_dummies"
+      ],
+      "music": "bgm_city_peaceful"
+    },
+    {
+      "id": "spirit_forest",
+      "name": "Tam Linh Rung",
+      "type": "wilderness",
+      "size": "500x500m",
+      "style": "magical_forest",
+      "lighting": "dappled",
+      "prefabs": [
+        "trees",
+        "spirit_particles",
+        "monsters_lv5_15"
+      ],
+      "music": "bgm_wilderness_mysterious"
+    },
+    {
+      "id": "iron_mine",
+      "name": "Thiet Khoang Dong",
+      "type": "dungeon",
+      "size": "300x200m",
+      "style": "cave",
+      "lighting": "torch_lit",
+      "prefabs": [
+        "cave_walls",
+        "ore_nodes",
+        "monsters_lv10_20"
+      ],
+      "music": "bgm_dungeon_tense",
+      "floors": 3
+    },
+    {
+      "id": "flame_volcano",
+      "name": "Hoa Diem Son",
+      "type": "elite_zone",
+      "size": "400x400m",
+      "style": "volcanic",
+      "lighting": "lava_glow",
+      "prefabs": [
+        "lava_pools",
+        "heat_haze",
+        "monsters_lv30_40"
+      ],
+      "music": "bgm_boss_intense",
+      "environmental_damage": "fire"
+    },
+    {
+      "id": "arena_champions",
+      "name": "Dau Truong Champions",
+      "type": "pvp",
+      "size": "40x40m",
+      "style": "colosseum",
+      "lighting": "spotlight",
+      "prefabs": [
+        "barriers",
+        "crowd_sounds"
+      ],
+      "music": "bgm_combat_epic",
+      "symmetrical": true
+    },
+    {
+      "id": "frozen_peaks",
+      "name": "Bang Phong Dinh",
+      "type": "elite_zone",
+      "size": "450x450m",
+      "style": "snow_mountain",
+      "lighting": "cold_blue",
+      "prefabs": [
+        "ice_crystals",
+        "snow_drifts"
+      ],
+      "music": "bgm_wilderness_cold",
+      "environmental_damage": "ice"
+    }
+  ]
+}
